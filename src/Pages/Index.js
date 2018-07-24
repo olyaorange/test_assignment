@@ -1,10 +1,16 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import axios from "axios/index"
+import axios from "axios/index";
+import {setInvestSettings} from "../actions/actions"
 
 import Calculator from "../Components/Calculator";
 
 class Index extends Component {
+    static contextTypes = {
+        router: PropTypes.object
+    }
+
     constructor() {
         super();
         this.state = {
@@ -68,6 +74,21 @@ class Index extends Component {
         this.setState({[name]: value}, () => this.updateRate());
     };
 
+    handleSubmit = () => {
+        const {currency, period, capital, rate, interestPayment, incomeMonthly, incomeTotal} = this.state;
+
+        this.props.setInvestSettings({
+            currency,
+            capital,
+            period,
+            interestPayment,
+            rate,
+            incomeMonthly,
+            incomeTotal
+        });
+        this.context.router.history.push('/invest')
+    };
+
     render() {
         return (
             <div className="container">
@@ -81,14 +102,19 @@ class Index extends Component {
 
                 <h2>Ежемесячно</h2>
                 <h2>{this.state.incomeMonthly}</h2>
+
+                <button onClick={this.handleSubmit}>инвестировать</button>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    //isLogged: state.login.isLogged,
-    //name: state.login.name
+    settings: state.invest.settings,
 });
 
-export default connect(mapStateToProps)(Index);
+const mapDispatchToProps = dispatch => ({
+    setInvestSettings: settings => dispatch(setInvestSettings(settings)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Index);
