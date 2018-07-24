@@ -16,9 +16,12 @@
     "redux-thunk": "2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts-with-stylus start src/styles/app.styl",
+    "build": "react-scripts-with-stylus build src/styles/app.styl",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "create-react-app-stylus": "^1.1.1"
   }
 }

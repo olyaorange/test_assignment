@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { ConnectedRouter, routerMiddleware } from "react-router-redux";
 import createHistory from "history/createBrowserHistory";
 import registerServiceWorker from './registerServiceWorker';
+import './styles/app.css'
 
 import App from "./App";
 
