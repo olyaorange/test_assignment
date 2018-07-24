@@ -2,8 +2,10 @@
   "name": "test_assignment",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://olyaorange.github.io/test_assignment/",
   "dependencies": {
     "axios": "^0.18.0",
+    "gh-pages": "^1.2.0",
     "history": "4.7.2",
     "react": "16.3.0",
     "react-dom": "16.3.0",
@@ -19,6 +21,8 @@
     "start": "react-scripts-with-stylus start src/styles/app.styl",
     "build": "react-scripts-with-stylus build src/styles/app.styl",
     "test": "react-scripts test --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
