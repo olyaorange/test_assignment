@@ -15,14 +15,26 @@ class Index extends Component {
         super();
         this.state = {
             currency: "usd",
-            capital: "10000",
-            period: "14",
+            capital: 10000,
+            period: 14,
             interestPayment: "monthly",
             rates: undefined,
             rate: undefined,
             incomeMonthly: undefined,
             incomeTotal: undefined
         };
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.settings) {
+            return {
+                currency: props.settings.currency,
+                capital: props.settings.capital,
+                period: props.settings.period,
+                interestPayment: props.settings.interestPayment,
+            }
+        }
+        return null
     }
 
     componentDidMount() {
@@ -94,16 +106,29 @@ class Index extends Component {
             <div className="container">
                 <Calculator
                     handleInputChange={this.handleInputChange}
+                    currency={this.state.currency}
                     capital={this.state.capital}
                     period={this.state.period}
+                    rate={this.state.rate}
                 />
-                <h2>За весь срок</h2>
-                <h2>{this.state.incomeTotal}</h2>
+                <hr/>
+                <div className="top_text">
+                    Ваш пассивный доход
+                </div>
+                <div className="line final-count">
+                    <div className="column-1">
+                        <div
+                            className="text-big">{this.state.currency === 'usd' && '$'} {this.state.incomeTotal} {this.state.currency === 'uah' && 'грн'} </div>
+                        <div className="text-small">за весь срок вложения</div>
+                    </div>
+                    <div className="column">
+                        <div
+                            className="text-big">{this.state.currency === 'usd' && '$'} {this.state.incomeMonthly} {this.state.currency === 'uah' && 'грн'} </div>
+                        <div className="text-small">ежемесячно</div>
+                    </div>
+                </div>
 
-                <h2>Ежемесячно</h2>
-                <h2>{this.state.incomeMonthly}</h2>
-
-                <button onClick={this.handleSubmit}>инвестировать</button>
+                <button onClick={this.handleSubmit} className="button_accented">Инвестировать</button>
             </div>
         );
     }
